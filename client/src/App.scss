@@ -1,0 +1,21 @@
+/* Everywhere */
+$backgroundColor: #f1ede5;
+
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: $backgroundColor;
+  scroll-behavior: smooth;
+}
+.app {
+  padding-bottom: 2rem;
+}

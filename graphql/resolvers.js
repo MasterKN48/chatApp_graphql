@@ -1,8 +1,9 @@
-import { getUsers, register } from "../controllers/auth";
+import { getUsers, register, login } from "../controllers/auth";
 
 const resolvers = {
   Query: {
     getUsers,
+    login,
   },
   Mutation: {
     register,

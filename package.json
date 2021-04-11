@@ -5,14 +5,15 @@
   "license": "MIT",
   "scripts": {
     "build": "babel server.js --out-file server-compiled.js",
-    "start": "forever server-compiled.js",
-    "dev": "nodemon --exec babel-node server.js"
+    "start": "npm run build && forever server-compiled.js",
+    "dev": "nodemon --exec babel-node server.js --ignore client/"
   },
   "dependencies": {
     "apollo-server": "^2.22.2",
     "dotenv": "^8.2.0",
     "forever": "^3.0.4",
     "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3"
   },
   "devDependencies": {

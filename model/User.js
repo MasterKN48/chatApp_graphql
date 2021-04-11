@@ -7,11 +7,13 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       minlength: 1,
+      trim: true,
       maxlength: 60,
     },
     email: {
       type: String,
       unique: true,
+      trim: true,
       minlength: 4,
       maxlength: 100,
     },

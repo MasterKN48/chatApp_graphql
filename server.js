@@ -18,11 +18,20 @@ connect(process.env.DB, {
   })
   .catch((err) => console.error(err));
 
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+};
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: (ctx) => ctx,
+  cors: corsOptions,
 });
 
 server.listen(process.env.PORT || 4000).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
+
+//server.applyMiddleware({ app })
