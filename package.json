@@ -1,0 +1,25 @@
+{
+  "name": "chatapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel server.js --out-file server-compiled.js",
+    "start": "forever server-compiled.js",
+    "dev": "nodemon --exec babel-node server.js"
+  },
+  "dependencies": {
+    "apollo-server": "^2.22.2",
+    "dotenv": "^8.2.0",
+    "forever": "^3.0.4",
+    "graphql": "^15.5.0",
+    "mongoose": "^5.12.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "nodemon": "^2.0.7"
+  }
+}
