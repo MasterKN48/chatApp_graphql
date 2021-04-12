@@ -1,0 +1,26 @@
+.messages {
+  min-height: 15rem;
+  max-height: 15rem;
+  overflow: auto;
+  background-color: #f7f7f7;
+  scroll-behavior: smooth;
+}
+.btn {
+  padding: 0.8rem 0.6rem !important;
+}
+
+.message {
+  display: block;
+}
+.messageRight {
+  background-color: #f1ede5;
+  display: inline-block;
+  border-bottom-right-radius: 10px;
+  text-align: left;
+}
+.messageLeft {
+  display: inline-block;
+  background-color: #f1ede5;
+  border-bottom-left-radius: 10px;
+  text-align: right;
+}

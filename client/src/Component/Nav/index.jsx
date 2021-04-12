@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { useAuthState, useAuthDispatch } from "../../context/auth";
+import { useHistory } from "react-router-dom";
 import Logo from "../../logo.svg";
 
 const Nav = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setIsAuth(true);
-    }
-  }, []);
+  const { isAuth } = useAuthState();
+  const dispatch = useAuthDispatch();
+  const history = useHistory();
+  const logout = (e) => {
+    dispatch({ type: "LOGOUT" });
+    history.push("/login");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-1 px-1">
@@ -63,12 +66,7 @@ const Nav = () => {
 
             {isAuth && (
               <li className="nav-item" style={{ cursor: "pointer" }}>
-                <div
-                  className="nav-link"
-                  onClick={() => {
-                    localStorage.clear();
-                  }}
-                >
+                <div className="nav-link" onClick={logout}>
                   LogOut
                 </div>
               </li>

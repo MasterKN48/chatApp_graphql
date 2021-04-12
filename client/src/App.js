@@ -1,7 +1,10 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import NavBar from "./Component/Nav";
 import Provider from "./ApolloProvider";
+import { AuthProvider } from "./context/auth";
+import { MessageProvider } from "./context/messages";
+import AuthRoute from "./utils/AuthRoute";
 
 import "./App.scss";
 
@@ -13,27 +16,34 @@ const NotFound = lazy(() => import("./Component/Error"));
 const App = () => {
   return (
     <Provider>
-      <BrowserRouter>
-        <main className="app">
-          <NavBar />
-          <Suspense
-            fallback={
-              <div className="container my-5" align="center">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </div>
-            }
-          >
-            <Switch>
-              <Route exact path="/" component={Main} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-              <Route component={NotFound} />
-            </Switch>
-          </Suspense>
-        </main>
-      </BrowserRouter>
+      <AuthProvider>
+        <MessageProvider>
+          <BrowserRouter>
+            <main className="app">
+              <NavBar />
+              <section className="container-md shadow-sm my-4 py-4 bg-white rounded">
+                <h2 className="text-center">Simple Chat App</h2>
+              </section>
+              <Suspense
+                fallback={
+                  <div className="container my-5" align="center">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                }
+              >
+                <Switch>
+                  <AuthRoute exact path="/" component={Main} authenticated />
+                  <AuthRoute path="/register" component={Register} guest />
+                  <AuthRoute path="/login" component={Login} guest />
+                  <AuthRoute component={NotFound} />
+                </Switch>
+              </Suspense>
+            </main>
+          </BrowserRouter>
+        </MessageProvider>
+      </AuthProvider>
     </Provider>
   );
 };

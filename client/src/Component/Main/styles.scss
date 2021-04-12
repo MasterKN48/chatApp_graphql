@@ -1,0 +1,13 @@
+.userCard {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e6ea;
+  cursor: pointer;
+  border-radius: 10px;
+  &:hover {
+    background-color: #eee;
+  }
+  &.active {
+    background-color: #eee;
+  }
+}

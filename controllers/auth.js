@@ -3,20 +3,12 @@ import { isEmail, isPassword } from "../utils";
 import { UserInputError, AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
-export const getUsers = async (_, __, ctx) => {
+export const getUsers = async (_, __, { user }) => {
   try {
-    let user;
-    if (ctx.req && ctx.req.headers.authorization) {
-      const token = ctx.req.headers.authorization.split("Bearer ")[1];
-      jwt.verify(token, process.env.SECRET, (err, decoded) => {
-        if (err) throw new AuthenticationError("Unauthorized");
-        user = decoded;
-      });
-    }
+    if (!user) throw new AuthenticationError("Unauthorized");
     const users = await User.find({ _id: { $ne: user._id } })
       .select("-hashed_password -salt")
       .lean();
-
     return users;
   } catch (error) {
     console.error(error);
@@ -90,9 +82,13 @@ export const login = async (_, args) => {
       throw new UserInputError("Wrong Password", { errors });
     }
 
-    let token = jwt.sign({ _id: usr._id }, process.env.SECRET, {
-      expiresIn: "1h",
-    });
+    let token = jwt.sign(
+      { _id: usr._id, name: usr.name, email: usr.email },
+      process.env.SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
     return {
       ...usr.toJSON(),
       token,

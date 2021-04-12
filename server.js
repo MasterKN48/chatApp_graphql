@@ -3,6 +3,7 @@ import { connect } from "mongoose";
 import { ApolloServer } from "apollo-server";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
+import handleCtx from "./utils/ctxMiddleware";
 
 config();
 //! DB Connection
@@ -26,7 +27,7 @@ const corsOptions = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: (ctx) => ctx,
+  context: handleCtx,
   cors: corsOptions,
 });
 
